@@ -11,62 +11,52 @@ let currentScore = 0;
 let currentPlayer = false;
 let playing = true;
 
+scorePlayer1.textContent = 0;
+scorePlayer2.textContent = 0;
+dice.classList.add('hidden');
+
+const switchPlayer = () => {
+  currentPlayer = !currentPlayer;
+};
+
 const switchColor = () => {
   PlayerColor1.classList.toggle('player--active');
   PlayerColor2.classList.toggle('player--active');
 };
 
 const init = () => {
-  currentScore = 0;
   scorePlayer1.textContent = 0;
   scorePlayer2.textContent = 0;
   currentPlayer1.textContent = 0;
   currentPlayer2.textContent = 0;
+  currentScore = 0;
   currentPlayer = false;
-  PlayerColor1.classList.toggle('player--active');
-  PlayerColor2.classList.remove('player--active');
 };
-
-const switchPlayer = () => {
-  currentPlayer = !currentPlayer;
-};
-
-dice.classList.add('hidden');
-scorePlayer1.textContent = 0;
-scorePlayer2.textContent = 0;
 
 roll.addEventListener('click', () => {
   const calcul = Math.trunc(Math.random() * 6) + 1;
-  dice.src = `dice-${calcul}.png`;
   dice.classList.remove('hidden');
 
+  dice.src = `dice-${calcul}.png`;
   if (!currentPlayer) {
     if (calcul !== 1) {
       currentScore += calcul;
       currentPlayer1.textContent = currentScore;
-      if (currentScore >= 30) {
-        alert('You win');
-        init();
-      }
     } else if (calcul === 1) {
       currentPlayer1.textContent = 0;
       currentScore = 0;
-      switchPlayer();
       switchColor();
+      switchPlayer();
     }
   } else {
     if (calcul !== 1) {
       currentScore += calcul;
       currentPlayer2.textContent = currentScore;
-      if (currentScore >= 30) {
-        alert('You win');
-        init();
-      }
     } else if (calcul === 1) {
       currentPlayer2.textContent = 0;
       currentScore = 0;
-      switchPlayer();
       switchColor();
+      switchPlayer();
     }
   }
 });
@@ -77,15 +67,15 @@ hold.addEventListener('click', () => {
       currentScore + parseInt(scorePlayer1.textContent);
     currentPlayer1.textContent = 0;
     currentScore = 0;
-    switchPlayer();
     switchColor();
+    switchPlayer();
   } else {
     scorePlayer2.textContent =
       currentScore + parseInt(scorePlayer2.textContent);
-    currentPlayer1.textContent = 0;
+    currentPlayer2.textContent = 0;
     currentScore = 0;
-    switchPlayer();
     switchColor();
+    switchPlayer();
   }
 });
 
