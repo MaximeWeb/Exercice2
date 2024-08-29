@@ -4,16 +4,27 @@ const currentPlayer1 = document.querySelector('#current--0');
 const currentPlayer2 = document.querySelector('#current--1');
 const PlayerColor1 = document.querySelector('.player--0');
 const PlayerColor2 = document.querySelector('.player--1');
+const namePLayer1 = document.querySelector('#name--0');
+const namePlayer2 = document.querySelector('#name--1');
+const newGame = document.querySelector('.btn--new')
 const roll = document.querySelector('.btn--roll');
 const hold = document.querySelector('.btn--hold');
 const dice = document.querySelector('.dice');
 let currentScore = 0;
 let currentPlayer = false;
-let playing = true;
+
+
+
+const changeName = () => {
+namePLayer1.textContent = prompt("veuillez choisir un nom");
+namePlayer2.textContent = prompt("veuillez choisir un nom");
+PlayerColor1.classList.toggle('player--active');
+}
 
 const switchColor = () => {
   PlayerColor1.classList.toggle('player--active');
   PlayerColor2.classList.toggle('player--active');
+  
 };
 
 const init = () => {
@@ -44,8 +55,8 @@ roll.addEventListener('click', () => {
     if (calcul !== 1) {
       currentScore += calcul;
       currentPlayer1.textContent = currentScore;
-      if (currentScore >= 30) {
-        alert('You win');
+      if (currentScore >= 10) {
+        alert(`${namePLayer1.textContent} won`);
         init();
       }
     } else if (calcul === 1) {
@@ -58,8 +69,8 @@ roll.addEventListener('click', () => {
     if (calcul !== 1) {
       currentScore += calcul;
       currentPlayer2.textContent = currentScore;
-      if (currentScore >= 30) {
-        alert('You win');
+      if (currentScore >= 10) {
+        alert(`${namePlayer2.textContent} won`);
         init();
       }
     } else if (calcul === 1) {
@@ -89,6 +100,7 @@ hold.addEventListener('click', () => {
   }
 });
 
-document.querySelector('.btn--new').addEventListener('click', () => {
+newGame.addEventListener('click', () => {
   init();
+  changeName()
 });
